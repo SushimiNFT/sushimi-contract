@@ -27,7 +27,7 @@ contract Sushimi is ERC721Enumerable, Ownable {
   // Generates a random index from the remaining pool
   function _getRandomID() private returns (uint16 number) {
     uint16 _remainingIDsLength = remainingIDsLength;
-    uint16 index = uint16(uint(keccak256(abi.encodePacked(blockhash(block.number-1)))) % _remainingIDsLength);
+    uint16 index = uint16(uint(keccak256(abi.encodePacked(blockhash(block.number-1), block.timestamp))) % _remainingIDsLength);
 
     number = remainingIDs[index];
     if(number == 0) {
@@ -43,6 +43,8 @@ contract Sushimi is ERC721Enumerable, Ownable {
 
   // Mint Sushimis
   function mint(uint _amount) external {
+    require(tx.origin == msg.sender, "Only EOAs.");
+
     ISushimiToken(sushimiToken).burnFrom(msg.sender, _amount * 1e18);
     
     for(uint i = 0; i < _amount; i++) {
