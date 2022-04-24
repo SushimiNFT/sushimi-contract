@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract SushimiToken is ERC20, Ownable {
-  constructor () ERC20("SushimiToken", "SUSH") {
+  constructor () ERC20("Sushimi", "SUSH") {
     _mint(msg.sender, 10000 * 1e18);
   }
 
